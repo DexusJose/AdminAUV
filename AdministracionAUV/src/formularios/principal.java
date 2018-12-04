@@ -41,8 +41,8 @@ public class principal {
     
     //Strings del programa
     
-    private final String version= "\nVersión: 0.1.0";
-    private final String beta   = "b18XI";
+    private final String version= "\nVersión: 0.1.2";
+    private final String beta   = "18XII";
     //private final String beta   = "";
     private final String message="Bienvenido a:\n";    
     
@@ -82,6 +82,85 @@ public class principal {
     private void configurar_ventana() {
         
         ventana = new JFrame();
+        
+        ventana.getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        
+        barra_menu = new JMenuBar();
+        
+        m_archivo = new JMenu("Archivo");
+        barra_menu.add(m_archivo);
+        
+        ventana.getContentPane().add(barra_menu);
+        
+        //************************
+        
+        JTextArea cajaTexto = new JTextArea("Area texto"); 
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 2;
+        constraints.gridheight = 2;
+        // El area de texto debe estirarse en ambos sentidos. Ponemos el campo fill.
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.weighty = 1.0; 
+        ventana.getContentPane().add (cajaTexto, constraints); 
+        constraints.weighty = 0.0;
+
+        JButton boton1 = new JButton ("Boton 1"); 
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weighty = 1.0;
+        // El botón 1 debe ocupar la posición NORTH de su celda 
+        constraints.anchor = GridBagConstraints.NORTH;
+        // El botón 1 no debe estirarse. Habíamos cambiado este valor en el
+        // area de texto, asi que lo restauramos.
+        constraints.fill = GridBagConstraints.NONE;
+        ventana.getContentPane().add (boton1, constraints);
+        // Restauramos valores por defecto
+        constraints.anchor = GridBagConstraints.CENTER; 
+        constraints.weighty = 0.0; 
+
+        JButton boton2 = new JButton ("Boton 2");
+        constraints.gridx = 2;
+        constraints.gridy = 2; 
+        constraints.gridwidth = 1; 
+        constraints.gridheight = 1; 
+        constraints.weighty = 1.0; 
+        // El boton 2 debe ocupar la posición NORTH de su celda. 
+        constraints.anchor = GridBagConstraints.NORTH;
+        ventana.getContentPane().add (boton2, constraints);
+        // Restauramos valores por defecto.
+        constraints.weighty = 0.0; 
+        constraints.anchor = GridBagConstraints.CENTER; 
+
+        JButton boton3 = new JButton ("Boton 3"); 
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 1; 
+        constraints.gridheight = 1; 
+        ventana.getContentPane().add (boton3, constraints); 
+
+        JButton boton4 = new JButton ("Boton 4");
+        constraints.gridx = 2;
+        constraints.gridy = 3; 
+        constraints.gridwidth = 1; 
+        constraints.gridheight = 1;
+        ventana.getContentPane().add (boton4, constraints);
+
+        JTextField campoTexto = new JTextField ("Campo texto");
+        constraints.gridx = 1; 
+        constraints.gridy = 3;
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 1.0;
+        // El campo de texto debe estirarse sólo en horizontal.
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        ventana.getContentPane().add (campoTexto, constraints);
+        
+        //*************************
+        
         ventana.setTitle(TituloFrame+ " "+version+beta);
         ventana.setPreferredSize(new Dimension(largoPantalla,altoPantalla));
         ventana.getContentPane().setBackground(fondoVentana); 
@@ -94,18 +173,17 @@ public class principal {
         ventana.setResizable(true);
         System.out.println("dimension de la pantalla: "+pantalla);
         
-        ventana.getContentPane().setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-//        barra_menu = new JMenuBar();
+        
+        
+//        
 //        GridBagConstraints constraints = new GridBagConstraints();
 //        constraints.gridx=0;
 //        constraints.gridy=0;
 //        constraints.gridheight=1;//columnas
 //        constraints.gridwidth=3;//filas
-//        ventana.getContentPane().add(barra_menu);
 //        
-//        m_archivo = new JMenu("Archivo");
-//        barra_menu.add(m_archivo);
+//        
+//        
 //        
 //        b_productos = new JButton("Productos");
 //        constraints.gridx=1;//columna
@@ -123,69 +201,7 @@ public class principal {
 //        ventana.getContentPane().add(etiquetainf);
 //        
         //--------------------------------
-        JTextArea cajaTexto = new JTextArea("Area texto"); 
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 2;
-        // El area de texto debe estirarse en ambos sentidos. Ponemos el campo fill.
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.weighty = 1.0; 
-        ventana.getContentPane().add (cajaTexto, constraints); 
-        constraints.weighty = 0.0;
-
-        JButton boton1 = new JButton ("Boton 1"); 
-        constraints.gridx = 2;
-        constraints.gridy = 0;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        constraints.weighty = 1.0;
-        // El botón 1 debe ocupar la posición NORTH de su celda 
-        constraints.anchor = GridBagConstraints.NORTH;
-        // El botón 1 no debe estirarse. Habíamos cambiado este valor en el
-        // area de texto, asi que lo restauramos.
-        constraints.fill = GridBagConstraints.NONE;
-        ventana.getContentPane().add (boton1, constraints);
-        // Restauramos valores por defecto
-        constraints.anchor = GridBagConstraints.CENTER; 
-        constraints.weighty = 0.0; 
-
-        JButton boton2 = new JButton ("Boton 2");
-        constraints.gridx = 2;
-        constraints.gridy = 1; 
-        constraints.gridwidth = 1; 
-        constraints.gridheight = 1; 
-        constraints.weighty = 1.0; 
-        // El boton 2 debe ocupar la posición NORTH de su celda. 
-        constraints.anchor = GridBagConstraints.NORTH;
-        ventana.getContentPane().add (boton2, constraints);
-        // Restauramos valores por defecto.
-        constraints.weighty = 0.0; 
-        constraints.anchor = GridBagConstraints.CENTER; 
-
-        JButton boton3 = new JButton ("Boton 3"); 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.gridwidth = 1; 
-        constraints.gridheight = 1; 
-        ventana.getContentPane().add (boton3, constraints); 
-
-        JButton boton4 = new JButton ("Boton 4");
-        constraints.gridx = 2;
-        constraints.gridy = 2; 
-        constraints.gridwidth = 1; 
-        constraints.gridheight = 1;
-        ventana.getContentPane().add (boton4, constraints);
-
-        JTextField campoTexto = new JTextField ("Campo texto");
-        constraints.gridx = 1; 
-        constraints.gridy = 2;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        constraints.weightx = 1.0;
-        // El campo de texto debe estirarse sólo en horizontal.
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        ventana.getContentPane().add (campoTexto, constraints);
+        
         
         
         
