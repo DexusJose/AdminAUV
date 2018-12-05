@@ -18,6 +18,7 @@ package formularios;
 import administracionauv.AdministracionAUV;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,8 +42,8 @@ public class principal {
     
     //Strings del programa
     
-    private final String version= "\nVersión: 0.1.2";
-    private final String beta   = "18XII";
+    private final String version= "\nVersión: 0.1.3";
+    private final String beta   = "18XII04";
     //private final String beta   = "";
     private final String message="Bienvenido a:\n";    
     
@@ -54,6 +55,14 @@ public class principal {
     public static final Color   fondoPLateral       = new Color(171,194,194);
     
     public static final Color   fondoBtLateral      = new Color(235,230,222);
+    
+    //Codigo para las fuentes
+    public static final Font ArialB14 = new Font("Arial",Font.BOLD,14);
+    public static final Font ArialP14 = new Font("Arial",Font.PLAIN,14);
+    public static final Font ArialB12 = new Font("Arial",Font.BOLD,12);
+    public static final Font ArialP12 = new Font("Arial",Font.PLAIN,12);
+    public static final Font ArialB10 = new Font("Arial",Font.BOLD,10);
+    public static final Font ArialP10 = new Font("Arial",Font.PLAIN,10);
     
     // Codigo para imagenes
         private final ImageIcon mainIcon    = new ImageIcon(AdministracionAUV.class.getResource("/resources/icon.png"));
@@ -73,6 +82,8 @@ public class principal {
     private JButton b_productos;
     private JTextArea etiquetanot;
     private JTextArea etiquetainf;
+    private GridBagConstraints restricciones;
+    private JMenuItem im_Salir;
     
     public void crear_ventana(){
         JOptionPane.showMessageDialog(null, message+TituloFrame+version+beta);
@@ -81,85 +92,47 @@ public class principal {
 
     private void configurar_ventana() {
         
+        // Instancia de los objetos.
         ventana = new JFrame();
-        
+                
+        //configuracion de layout.
         ventana.getContentPane().setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
         
+        //instancia de las restricciones
+        restricciones = new GridBagConstraints();
+        
+        //instancia de la barra del menu.
         barra_menu = new JMenuBar();
+        barra_menu.setBackground(fondoBarra);
+        barra_menu.setFont(ArialB14);
         
+        //Configuracion de la barra de menu en el grid
+        restricciones.gridx = 0; //Columna a definir
+        restricciones.gridy = 1; //fila a definir
+        restricciones.gridwidth = 1;//ancho
+        restricciones.gridheight = 1;//alto
+        restricciones.fill = GridBagConstraints.HORIZONTAL;
+        restricciones.anchor = GridBagConstraints.NORTH;
+        restricciones.weighty = 1.0;
+        restricciones.weightx = 1.0;
+        
+        
+        //instancia del menu en la barra.
         m_archivo = new JMenu("Archivo");
         barra_menu.add(m_archivo);
         
-        ventana.getContentPane().add(barra_menu);
+        //Agregado del los items a la barra de menu.
+        im_Salir = new JMenuItem("Salir");
+        im_Salir.setFont(ArialB12);
+        m_archivo.add(im_Salir);
         
-        //************************
+        //Adhesion de los componetes al grid de la pantalla.
+        ventana.getContentPane().add(barra_menu,restricciones);
         
-        JTextArea cajaTexto = new JTextArea("Area texto"); 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 2;
-        // El area de texto debe estirarse en ambos sentidos. Ponemos el campo fill.
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.weighty = 1.0; 
-        ventana.getContentPane().add (cajaTexto, constraints); 
-        constraints.weighty = 0.0;
-
-        JButton boton1 = new JButton ("Boton 1"); 
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        constraints.weighty = 1.0;
-        // El botón 1 debe ocupar la posición NORTH de su celda 
-        constraints.anchor = GridBagConstraints.NORTH;
-        // El botón 1 no debe estirarse. Habíamos cambiado este valor en el
-        // area de texto, asi que lo restauramos.
-        constraints.fill = GridBagConstraints.NONE;
-        ventana.getContentPane().add (boton1, constraints);
-        // Restauramos valores por defecto
-        constraints.anchor = GridBagConstraints.CENTER; 
-        constraints.weighty = 0.0; 
-
-        JButton boton2 = new JButton ("Boton 2");
-        constraints.gridx = 2;
-        constraints.gridy = 2; 
-        constraints.gridwidth = 1; 
-        constraints.gridheight = 1; 
-        constraints.weighty = 1.0; 
-        // El boton 2 debe ocupar la posición NORTH de su celda. 
-        constraints.anchor = GridBagConstraints.NORTH;
-        ventana.getContentPane().add (boton2, constraints);
-        // Restauramos valores por defecto.
-        constraints.weighty = 0.0; 
-        constraints.anchor = GridBagConstraints.CENTER; 
-
-        JButton boton3 = new JButton ("Boton 3"); 
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 1; 
-        constraints.gridheight = 1; 
-        ventana.getContentPane().add (boton3, constraints); 
-
-        JButton boton4 = new JButton ("Boton 4");
-        constraints.gridx = 2;
-        constraints.gridy = 3; 
-        constraints.gridwidth = 1; 
-        constraints.gridheight = 1;
-        ventana.getContentPane().add (boton4, constraints);
-
-        JTextField campoTexto = new JTextField ("Campo texto");
-        constraints.gridx = 1; 
-        constraints.gridy = 3;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        constraints.weightx = 1.0;
-        // El campo de texto debe estirarse sólo en horizontal.
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        ventana.getContentPane().add (campoTexto, constraints);
+        im_Salir.addActionListener((e) -> {
+            ventana.dispose();
+        });
         
-        //*************************
         
         ventana.setTitle(TituloFrame+ " "+version+beta);
         ventana.setPreferredSize(new Dimension(largoPantalla,altoPantalla));
@@ -171,38 +144,7 @@ public class principal {
         ventana.setVisible(true);
         ventana.setExtendedState(Frame.MAXIMIZED_BOTH);
         ventana.setResizable(true);
-        System.out.println("dimension de la pantalla: "+pantalla);
-        
-        
-        
-//        
-//        GridBagConstraints constraints = new GridBagConstraints();
-//        constraints.gridx=0;
-//        constraints.gridy=0;
-//        constraints.gridheight=1;//columnas
-//        constraints.gridwidth=3;//filas
-//        
-//        
-//        
-//        
-//        b_productos = new JButton("Productos");
-//        constraints.gridx=1;//columna
-//        constraints.gridy=0;//fila
-//        constraints.gridheight=1;//columnas
-//        constraints.gridwidth=1;//filas
-//        ventana.getContentPane().add(b_productos);
-//        
-//        etiquetanot = new JTextArea("Notificaciones");
-//        
-//        ventana.getContentPane().add(etiquetanot);
-//        
-//        etiquetainf = new JTextArea("Información");
-//        
-//        ventana.getContentPane().add(etiquetainf);
-//        
-        //--------------------------------
-        
-        
+        //System.out.println("dimension de la pantalla: "+pantalla);      
         
         
     }
