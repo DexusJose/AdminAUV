@@ -31,6 +31,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -43,9 +44,12 @@ public class principal {
     //Strings del programa
     
     private final String version= "\nVersión: 0.1.3";
-    private final String beta   = "18XII04";
+    private final String beta   = "18XII05";
     //private final String beta   = "";
     private final String message="Bienvenido a:\n";    
+    
+    //Codigo de los paneles
+    public JPanel PanelbarraLateral;
     
     //Codigo para los colores
     public static final Color   fondoBarra          = new Color(51, 204, 204);
@@ -80,10 +84,10 @@ public class principal {
     private JMenuBar barra_menu;
     private JMenu m_archivo;
     private JButton b_productos;
-    private JTextArea etiquetanot;
-    private JTextArea etiquetainf;
-    private GridBagConstraints restricciones;
+    private JTextArea etiquetainf, etiquetanot, areainf;
+    private GridBagConstraints grid_menuB,grid_barraL,grid_panelPrincipal,grid_pantallanot,grid_pantallainf;
     private JMenuItem im_Salir;
+
     
     public void crear_ventana(){
         JOptionPane.showMessageDialog(null, message+TituloFrame+version+beta);
@@ -98,8 +102,12 @@ public class principal {
         //configuracion de layout.
         ventana.getContentPane().setLayout(new GridBagLayout());
         
-        //instancia de las restricciones
-        restricciones = new GridBagConstraints();
+        //instancia de las grid_menuB
+        grid_menuB = new GridBagConstraints();
+        grid_barraL = new GridBagConstraints();
+        grid_panelPrincipal = new GridBagConstraints();
+        grid_pantallainf = new GridBagConstraints();
+        grid_pantallanot = new GridBagConstraints();
         
         //instancia de la barra del menu.
         barra_menu = new JMenuBar();
@@ -107,14 +115,14 @@ public class principal {
         barra_menu.setFont(ArialB14);
         
         //Configuracion de la barra de menu en el grid
-        restricciones.gridx = 0; //Columna a definir
-        restricciones.gridy = 1; //fila a definir
-        restricciones.gridwidth = 1;//ancho
-        restricciones.gridheight = 1;//alto
-        restricciones.fill = GridBagConstraints.HORIZONTAL;
-        restricciones.anchor = GridBagConstraints.NORTH;
-        restricciones.weighty = 1.0;
-        restricciones.weightx = 1.0;
+        grid_menuB.gridx = 0; //Columna a definir
+        grid_menuB.gridy = 0; //fila a definir
+        grid_menuB.gridwidth = 3;//ancho
+        grid_menuB.gridheight = 1;//alto
+        grid_menuB.fill = GridBagConstraints.HORIZONTAL;
+        grid_menuB.anchor = GridBagConstraints.NORTH;
+        grid_menuB.weighty = 0.0;
+        grid_menuB.weightx = 0.0;
         
         
         //instancia del menu en la barra.
@@ -126,10 +134,79 @@ public class principal {
         im_Salir.setFont(ArialB12);
         m_archivo.add(im_Salir);
         
+        //Configuracion del boton productos
+        //Codigo para los botones del menu lateral
+        b_productos = new JButton("Productos");
+        b_productos.setFont(ArialB12);        
+        grid_barraL.gridx = 0;
+        grid_barraL.gridy = 1;
+        grid_barraL.gridheight = 1;
+        grid_barraL.gridwidth = 1;
+        grid_barraL.fill = GridBagConstraints.BOTH;
+        grid_barraL.anchor = GridBagConstraints.CENTER;
+        grid_barraL.weightx = 0.05;
+        grid_barraL.weighty = 1.0;
+        
+        
+        //Pantalla de texto
+        etiquetainf = new JTextArea("Pantalla principal");
+        grid_panelPrincipal.gridx = 1;
+        grid_panelPrincipal.gridy = 1;
+        grid_panelPrincipal.gridheight = 1;
+        grid_panelPrincipal.gridwidth = 2;
+        grid_panelPrincipal.fill = GridBagConstraints.BOTH;
+        grid_panelPrincipal.anchor = GridBagConstraints.CENTER;
+        grid_panelPrincipal.weightx = 1.0;
+        grid_panelPrincipal.weighty = 0.0;
+        
+        //Pantalla de notificaciones
+        etiquetanot = new JTextArea("Pantalla notificaciones");
+        etiquetanot.setBackground(Color.LIGHT_GRAY);
+        grid_pantallanot.gridx = 0;
+        grid_pantallanot.gridy = 2;
+        grid_pantallanot.gridheight = 1;
+        grid_pantallanot.gridwidth = 1;        
+        grid_pantallanot.fill = GridBagConstraints.BOTH;
+        grid_pantallanot.anchor = GridBagConstraints.NORTH;
+        grid_pantallanot.weightx = 0.05;
+        grid_pantallanot.weighty = 0.20;
+        
+        //Pantalla de Informacion
+        areainf = new JTextArea("Pantalla informacion");
+        areainf.setBackground(Color.GRAY);
+        grid_pantallainf.gridx = 1;
+        grid_pantallainf.gridy = 2;
+        grid_pantallainf.gridheight = 1;
+        grid_pantallainf.gridwidth = 2;
+        grid_pantallainf.fill = GridBagConstraints.BOTH;
+        grid_pantallainf.anchor = GridBagConstraints.CENTER;
+        grid_pantallainf.weightx = 1.0;
+        grid_pantallainf.weighty = 0.20;
+        
         //Adhesion de los componetes al grid de la pantalla.
-        ventana.getContentPane().add(barra_menu,restricciones);
+        ventana.getContentPane().add(areainf,grid_pantallainf);
+        ventana.getContentPane().add(etiquetanot,grid_pantallanot);
+        ventana.getContentPane().add(etiquetainf,grid_panelPrincipal);
+        ventana.getContentPane().add(barra_menu,grid_menuB);
+        ventana.getContentPane().add(b_productos,grid_barraL);
+        
+//        JButton boton = new JButton("boton");
+//        GridBagConstraints bt = new GridBagConstraints();
+//        bt.gridx = 2;
+//        bt.gridy = 2;
+//        bt.gridheight = 1;
+//        bt.gridwidth = 1;
+//        bt.anchor = GridBagConstraints.CENTER;
+//        //bt.fill = GridBagConstraints.BOTH;
+//        bt.weightx = 0.0;
+//        bt.weighty = 0.0;
+//        ventana.getContentPane().add(boton,bt);
         
         im_Salir.addActionListener((e) -> {
+            ventana.dispose();
+        });
+        
+        b_productos.addActionListener((e) -> {
             ventana.dispose();
         });
         
