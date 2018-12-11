@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
@@ -39,12 +40,12 @@ import javax.swing.JTextField;
  *
  * @author Ing. Dexus José Pérez <jose_perezmiranda@outlook.com>
  */
-public class principal {
+public class principal extends JPanel{
     
     //Strings del programa
     
-    private final String version= "\nVersión: 0.1.3";
-    private final String beta   = "18XII05";
+    private final String version= "\nVersión: 0.1.4";
+    private final String beta   = "18XII0A";
     //private final String beta   = "";
     private final String message="Bienvenido a:\n";    
     
@@ -54,11 +55,15 @@ public class principal {
     //Codigo para los colores
     public static final Color   fondoBarra          = new Color(51, 204, 204);
     
+    public static final Color   nfondobarra         = new Color(144, 221,221);
+    
     public static final Color   fondoVentana        = new Color(102, 179, 255);
     
     public static final Color   fondoPLateral       = new Color(171,194,194);
     
     public static final Color   fondoBtLateral      = new Color(235,230,222);
+    
+    public static final Color botones_laterales     = new Color(119,172,232);
     
     //Codigo para las fuentes
     public static final Font ArialB14 = new Font("Arial",Font.BOLD,14);
@@ -69,7 +74,9 @@ public class principal {
     public static final Font ArialP10 = new Font("Arial",Font.PLAIN,10);
     
     // Codigo para imagenes
-        private final ImageIcon mainIcon    = new ImageIcon(AdministracionAUV.class.getResource("/resources/icon.png"));
+    private final ImageIcon mainIcon    = new ImageIcon(AdministracionAUV.class.getResource("/resources/icon.png"));
+    
+    public static final ImageIcon Fondo = new ImageIcon(AdministracionAUV.class.getResource("/resources/1024.png"));
 
     
     // Codigo para el frame ventana
@@ -87,20 +94,24 @@ public class principal {
     private JTextArea etiquetainf, etiquetanot, areainf;
     private GridBagConstraints grid_menuB,grid_barraL,grid_panelPrincipal,grid_pantallanot,grid_pantallainf;
     private JMenuItem im_Salir;
+    private mipan Paneltotal;
 
     
     public void crear_ventana(){
         JOptionPane.showMessageDialog(null, message+TituloFrame+version+beta);
         configurar_ventana();
+        
     }
 
     private void configurar_ventana() {
         
         // Instancia de los objetos.
         ventana = new JFrame();
-                
+        
+        Paneltotal = new mipan();
+        
         //configuracion de layout.
-        ventana.getContentPane().setLayout(new GridBagLayout());
+        Paneltotal.setLayout(new GridBagLayout());
         
         //instancia de las grid_menuB
         grid_menuB = new GridBagConstraints();
@@ -111,7 +122,8 @@ public class principal {
         
         //instancia de la barra del menu.
         barra_menu = new JMenuBar();
-        barra_menu.setBackground(fondoBarra);
+        barra_menu.setBackground(nfondobarra);
+        //System.out.println(barra_menu.getBackground());
         barra_menu.setFont(ArialB14);
         
         //Configuracion de la barra de menu en el grid
@@ -131,19 +143,21 @@ public class principal {
         
         //Agregado del los items a la barra de menu.
         im_Salir = new JMenuItem("Salir");
+        im_Salir.setBackground(nfondobarra);
         im_Salir.setFont(ArialB12);
         m_archivo.add(im_Salir);
         
         //Configuracion del boton productos
         //Codigo para los botones del menu lateral
         b_productos = new JButton("Productos");
-        b_productos.setFont(ArialB12);        
+        b_productos.setFont(ArialB12);
+        b_productos.setBackground(botones_laterales);
         grid_barraL.gridx = 0;
         grid_barraL.gridy = 1;
         grid_barraL.gridheight = 1;
         grid_barraL.gridwidth = 1;
-        grid_barraL.fill = GridBagConstraints.BOTH;
-        grid_barraL.anchor = GridBagConstraints.CENTER;
+        grid_barraL.fill = GridBagConstraints.HORIZONTAL;
+        grid_barraL.anchor = GridBagConstraints.NORTH;
         grid_barraL.weightx = 0.05;
         grid_barraL.weighty = 1.0;
         
@@ -184,37 +198,39 @@ public class principal {
         grid_pantallainf.weighty = 0.20;
         
         //Adhesion de los componetes al grid de la pantalla.
-        ventana.getContentPane().add(areainf,grid_pantallainf);
-        ventana.getContentPane().add(etiquetanot,grid_pantallanot);
-        ventana.getContentPane().add(etiquetainf,grid_panelPrincipal);
-        ventana.getContentPane().add(barra_menu,grid_menuB);
-        ventana.getContentPane().add(b_productos,grid_barraL);
+        Paneltotal.add(areainf,grid_pantallainf);
+        Paneltotal.add(etiquetanot,grid_pantallanot);
+        Paneltotal.add(etiquetainf,grid_panelPrincipal);
+        Paneltotal.add(barra_menu,grid_menuB);
+        Paneltotal.add(b_productos,grid_barraL);
         
-//        JButton boton = new JButton("boton");
-//        GridBagConstraints bt = new GridBagConstraints();
-//        bt.gridx = 2;
-//        bt.gridy = 2;
-//        bt.gridheight = 1;
-//        bt.gridwidth = 1;
-//        bt.anchor = GridBagConstraints.CENTER;
-//        //bt.fill = GridBagConstraints.BOTH;
-//        bt.weightx = 0.0;
-//        bt.weighty = 0.0;
-//        ventana.getContentPane().add(boton,bt);
+        //Paneltotal.setSize(new Dimension(Frame.MAXIMIZED_BOTH,Frame.MAXIMIZED_BOTH));
+        //Eventos para los menus
         
         im_Salir.addActionListener((e) -> {
             ventana.dispose();
         });
         
+        //Eventos para los botones
+        
         b_productos.addActionListener((e) -> {
             ventana.dispose();
         });
         
+        //Codigo para el frame principal
+        
+        
+        
+        
+        //Paneltotal.setImage(Fondo.getImage());
         
         ventana.setTitle(TituloFrame+ " "+version+beta);
         ventana.setPreferredSize(new Dimension(largoPantalla,altoPantalla));
-        ventana.getContentPane().setBackground(fondoVentana); 
         ventana.setIconImage(mainIcon.getImage());
+        //ventana.getContentPane().setBackground(fondoVentana);
+        //ventana.getContentPane().setIconImage(Fondo.getImage());
+        
+        ventana.getContentPane().add(Paneltotal);
         ventana.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ventana.pack();
         ventana.setLocationRelativeTo(null);
@@ -223,8 +239,9 @@ public class principal {
         ventana.setResizable(true);
         //System.out.println("dimension de la pantalla: "+pantalla);      
         
-        
+            
     }
+    
     
     
 }
