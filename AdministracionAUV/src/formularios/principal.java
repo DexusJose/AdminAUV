@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,7 +41,7 @@ import javax.swing.JTextField;
  *
  * @author Ing. Dexus José Pérez <jose_perezmiranda@outlook.com>
  */
-public class principal extends JPanel{
+public class principal {
     
     //Strings del programa
     
@@ -109,6 +110,8 @@ public class principal extends JPanel{
         ventana = new JFrame();
         
         Paneltotal = new mipan();
+        PanelbarraLateral = new JPanel();
+        //PanelbarraLateral.setSize(new Dimension(pantalla.width/4,pantalla.height/4));
         
         //configuracion de layout.
         Paneltotal.setLayout(new GridBagLayout());
@@ -167,15 +170,18 @@ public class principal extends JPanel{
         grid_panelPrincipal.gridx = 1;
         grid_panelPrincipal.gridy = 1;
         grid_panelPrincipal.gridheight = 1;
-        grid_panelPrincipal.gridwidth = 2;
+        grid_panelPrincipal.gridwidth = 1;
         grid_panelPrincipal.fill = GridBagConstraints.BOTH;
-        grid_panelPrincipal.anchor = GridBagConstraints.CENTER;
+        grid_panelPrincipal.anchor = GridBagConstraints.FIRST_LINE_START;
+        
+        //grid_panelPrincipal.ipadx = 100 ;
+        //grid_panelPrincipal.ipady = 100 ;
         grid_panelPrincipal.weightx = 1.0;
         grid_panelPrincipal.weighty = 0.0;
         
         //Pantalla de notificaciones
         etiquetanot = new JTextArea("Pantalla notificaciones");
-        etiquetanot.setBackground(Color.LIGHT_GRAY);
+        //etiquetanot.setBackground(Color.LIGHT_GRAY);
         grid_pantallanot.gridx = 0;
         grid_pantallanot.gridy = 2;
         grid_pantallanot.gridheight = 1;
@@ -187,7 +193,7 @@ public class principal extends JPanel{
         
         //Pantalla de Informacion
         areainf = new JTextArea("Pantalla informacion");
-        areainf.setBackground(Color.GRAY);
+        //areainf.setBackground(Color.GRAY);
         grid_pantallainf.gridx = 1;
         grid_pantallainf.gridy = 2;
         grid_pantallainf.gridheight = 1;
@@ -197,12 +203,23 @@ public class principal extends JPanel{
         grid_pantallainf.weightx = 1.0;
         grid_pantallainf.weighty = 0.20;
         
+        
+        
         //Adhesion de los componetes al grid de la pantalla.
-        Paneltotal.add(areainf,grid_pantallainf);
-        Paneltotal.add(etiquetanot,grid_pantallanot);
-        Paneltotal.add(etiquetainf,grid_panelPrincipal);
         Paneltotal.add(barra_menu,grid_menuB);
         Paneltotal.add(b_productos,grid_barraL);
+        
+        Paneltotal.add(PanelbarraLateral,grid_panelPrincipal);
+        Paneltotal.add(etiquetanot,grid_pantallanot);
+        Paneltotal.add(areainf,grid_pantallainf);
+        //Paneltotal.add(etiquetainf,grid_panelPrincipal);
+        
+        
+        
+        
+        PanelbarraLateral.add(etiquetainf);
+        //PanelbarraLateral.setSize(200, 200);
+        PanelbarraLateral.setBorder(BorderFactory.createLineBorder(fondoBarra));
         
         //Paneltotal.setSize(new Dimension(Frame.MAXIMIZED_BOTH,Frame.MAXIMIZED_BOTH));
         //Eventos para los menus
@@ -226,6 +243,7 @@ public class principal extends JPanel{
         
         ventana.setTitle(TituloFrame+ " "+version+beta);
         ventana.setPreferredSize(new Dimension(largoPantalla,altoPantalla));
+        
         ventana.setIconImage(mainIcon.getImage());
         //ventana.getContentPane().setBackground(fondoVentana);
         //ventana.getContentPane().setIconImage(Fondo.getImage());
@@ -237,6 +255,7 @@ public class principal extends JPanel{
         ventana.setVisible(true);
         ventana.setExtendedState(Frame.MAXIMIZED_BOTH);
         ventana.setResizable(true);
+        
         //System.out.println("dimension de la pantalla: "+pantalla);      
         
             
