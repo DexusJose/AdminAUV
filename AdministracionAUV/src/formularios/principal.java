@@ -46,7 +46,7 @@ public class principal {
     //Strings del programa
     
     private final String version= "\nVersión: 0.1.4";
-    private final String beta   = "18XII0A";
+    private final String beta   = "18XII0B";
     //private final String beta   = "";
     private final String message="Bienvenido a:\n";    
     
