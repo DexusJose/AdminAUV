@@ -16,8 +16,10 @@
 package formularios;
 
 import administracionauv.AdministracionAUV;
+import com.sun.awt.SecurityWarning;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -46,7 +48,7 @@ public class principal {
     //Strings del programa
     
     private final String version= "\nVersión: 0.1.4";
-    private final String beta   = "18XII0B";
+    private final String beta   = "18XII0D";
     //private final String beta   = "";
     private final String message="Bienvenido a:\n";    
     
@@ -111,6 +113,7 @@ public class principal {
         
         Paneltotal = new mipan();
         PanelbarraLateral = new JPanel();
+        PanelbarraLateral.setLayout(new FlowLayout());
         //PanelbarraLateral.setSize(new Dimension(pantalla.width/4,pantalla.height/4));
         
         //configuracion de layout.
@@ -125,7 +128,7 @@ public class principal {
         
         //instancia de la barra del menu.
         barra_menu = new JMenuBar();
-        barra_menu.setBackground(nfondobarra);
+        //barra_menu.setBackground(nfondobarra);
         //System.out.println(barra_menu.getBackground());
         barra_menu.setFont(ArialB14);
         
@@ -146,7 +149,7 @@ public class principal {
         
         //Agregado del los items a la barra de menu.
         im_Salir = new JMenuItem("Salir");
-        im_Salir.setBackground(nfondobarra);
+        //im_Salir.setBackground(nfondobarra);
         im_Salir.setFont(ArialB12);
         m_archivo.add(im_Salir);
         
@@ -167,17 +170,21 @@ public class principal {
         
         //Pantalla de texto
         etiquetainf = new JTextArea("Pantalla principal");
+        
+        etiquetainf.setPreferredSize(new Dimension(400,400));
+        
+        
         grid_panelPrincipal.gridx = 1;
         grid_panelPrincipal.gridy = 1;
         grid_panelPrincipal.gridheight = 1;
-        grid_panelPrincipal.gridwidth = 1;
-        grid_panelPrincipal.fill = GridBagConstraints.BOTH;
+        grid_panelPrincipal.gridwidth = 2;
+        grid_panelPrincipal.fill = GridBagConstraints.NONE;
         grid_panelPrincipal.anchor = GridBagConstraints.FIRST_LINE_START;
         
         //grid_panelPrincipal.ipadx = 100 ;
         //grid_panelPrincipal.ipady = 100 ;
-        grid_panelPrincipal.weightx = 1.0;
-        grid_panelPrincipal.weighty = 0.0;
+        grid_panelPrincipal.weightx = 0.0;
+        grid_panelPrincipal.weighty = 1.0;
         
         //Pantalla de notificaciones
         etiquetanot = new JTextArea("Pantalla notificaciones");
@@ -188,7 +195,7 @@ public class principal {
         grid_pantallanot.gridwidth = 1;        
         grid_pantallanot.fill = GridBagConstraints.BOTH;
         grid_pantallanot.anchor = GridBagConstraints.NORTH;
-        grid_pantallanot.weightx = 0.05;
+        grid_pantallanot.weightx = 00.05;
         grid_pantallanot.weighty = 0.20;
         
         //Pantalla de Informacion
@@ -208,11 +215,11 @@ public class principal {
         //Adhesion de los componetes al grid de la pantalla.
         Paneltotal.add(barra_menu,grid_menuB);
         Paneltotal.add(b_productos,grid_barraL);
-        
+        //Paneltotal.add(etiquetainf,grid_panelPrincipal);
         Paneltotal.add(PanelbarraLateral,grid_panelPrincipal);
         Paneltotal.add(etiquetanot,grid_pantallanot);
         Paneltotal.add(areainf,grid_pantallainf);
-        //Paneltotal.add(etiquetainf,grid_panelPrincipal);
+        
         
         
         
