@@ -16,6 +16,8 @@
 package administracionauv;
 
 import formularios.principal;
+import formularios.ventanaPrincipal;
+import java.awt.EventQueue;
 
 /**
  *
@@ -28,8 +30,18 @@ public class AdministracionAUV {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        principal form = new principal();
-        form.crear_ventana();
+//        principal form = new principal();
+//        form.crear_ventana();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ventanaPrincipal().setVisible(true);
+            }
+        });
+        
+    
+        
+        
     }
     
 }

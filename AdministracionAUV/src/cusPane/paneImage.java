@@ -28,7 +28,7 @@ public class paneImage extends JPanel{
     
     public paneImage(){
         
-       this.setSize(new Dimension(getSize().width,getSize().height));
+       //this.setSize(new Dimension(getSize().width,getSize().height));
     }
 
     
@@ -36,10 +36,10 @@ public class paneImage extends JPanel{
         int widht = getSize().width/2;
         int height= getSize().height/2;
         
-        g.drawImage(Fondo.getImage(), (getSize().width/2)-(widht/2), (getSize().height/3)-(height/2), widht,height+300, this);
+        g.drawImage(Fondo.getImage(), (getSize().width/2)-(widht/2), ((getSize().height/3)-(height/2))+30, widht,height+200,null);
         
         setOpaque(false);
-        paintComponents(g);
+        super.paint(g);
         
     }
     

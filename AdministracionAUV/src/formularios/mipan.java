@@ -29,7 +29,7 @@ public class mipan extends JPanel{
     
     public mipan(){
         
-       this.setSize(new Dimension(getSize().width,getSize().height));
+       //this.setSize(new Dimension(getSize().width,getSize().height));
     }
 
     
