@@ -15,32 +15,69 @@
  */
 package formularios;
 
+import administracionauv.AdministracionAUV;
 import cusPane.paneImage;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.border.BevelBorder;
 
 /**
  *
  * @author Ing. Dexus José Pérez <jose_perezmiranda@outlook.com>
  */
-public class ventanaPrincipal extends JFrame{
+public class ventanaPrincipal {
     
     private final Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
     
     public int altoPantalla = pantalla.height;
     public int anchoPantalla = pantalla.width;
+    
+        //Codigo para los colores
+    public static final Color   fondoBarra          = new Color(51, 204, 204);
+    
+    public static final Color   nfondobarra         = new Color(144, 221,221);
+    
+    public static final Color   fondoVentana        = new Color(102, 179, 255);
+    
+    public static final Color   fondoPLateral       = new Color(171,194,194);
+    
+    public static final Color   fondoBtLateral      = new Color(235,230,222);
+    
+    public static final Color botones_laterales     = new Color(119,172,232);
+    
+    //Codigo para las fuentes
+    public static final Font ArialB14 = new Font("Arial",Font.BOLD,14);
+    public static final Font ArialP14 = new Font("Arial",Font.PLAIN,14);
+    public static final Font ArialB12 = new Font("Arial",Font.BOLD,12);
+    public static final Font ArialP12 = new Font("Arial",Font.PLAIN,12);
+    public static final Font ArialB10 = new Font("Arial",Font.BOLD,10);
+    public static final Font ArialP10 = new Font("Arial",Font.PLAIN,10);
+    
+    // Codigo para imagenes
+    private final ImageIcon mainIcon    = new ImageIcon(AdministracionAUV.class.getResource("/resources/icon.png"));
+    
+
     
     public GridBagConstraints constraints;
     public paneImage panelContenedor;
@@ -48,9 +85,24 @@ public class ventanaPrincipal extends JFrame{
     private JPanel panelPantallaPrincipal;
     private JPanel panelNotificaciones;
     private JPanel panelInformacion;
-    private JButton bt_Productos;
+    private JButton bt_Productos,bt_Catalogo,bt_Proveedores,bt_contactos,bt_Facturas;
     private JMenuBar br_Menu;
     private JMenu m_File;
+    private JMenuItem im_New, im_Open, im_Exit; 
+    public JFrame win;
+    
+    private void cerrarApp(){
+        if (JOptionPane.showConfirmDialog(win, "Esta seguro que desea cerrar el programa?","¿Cerrar aplicacion?",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                
+            System.exit(0);
+                
+                
+        }
+    }
+    
+    private void fomWindowClosing(WindowEvent evt){
+        cerrarApp();
+    }
     
     public ventanaPrincipal(){
         
@@ -60,7 +112,7 @@ public class ventanaPrincipal extends JFrame{
 
     public final void initComponents() {
     
-        
+        win =new JFrame();
         
         //+++++++ Paneles contenedores +++++++++
         //panelContenedor = new JPanel();
@@ -72,18 +124,40 @@ public class ventanaPrincipal extends JFrame{
         
         //+++++++++++++ Botones +++++++++++++
         bt_Productos    = new JButton();
+        bt_Catalogo     = new JButton();
         
         //++++++++++++ Barra de menu ++++++++
         br_Menu = new JMenuBar();
         
         //++++++++++ Contenido de la barra +++++++++++
         m_File = new JMenu();
+        //++++++++++ Items de menu archivo +++++++++++
+        im_New  = new JMenuItem();
+        im_Open = new JMenuItem();
+        im_Exit = new JMenuItem();
         
         //+++++++++Codigo Ventana ++++++++++++
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setExtendedState(MAXIMIZED_BOTH);
-        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
-        setPreferredSize(pantalla); 
+        win.setIconImage(mainIcon.getImage());
+        win.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        //System.out.println(getDefaultCloseOperation());
+        
+        
+        
+        win.addWindowListener( new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                
+                cerrarApp();
+                
+            }
+            
+            
+            
+        });
+        win.setExtendedState(MAXIMIZED_BOTH);
+        win.getContentPane().setLayout(new BoxLayout(win.getContentPane(), BoxLayout.LINE_AXIS));
+        win.setPreferredSize(pantalla); 
         
         //++++++++++++ Codigo del panel contenedor +++++++++++++++
         panelContenedor.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
@@ -91,26 +165,35 @@ public class ventanaPrincipal extends JFrame{
         panelContenedor.setLayout(new GridBagLayout());
         
         //++++++++++++ Codigo del panel
-        panelLateralBotones.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        //panelLateralBotones.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        panelLateralBotones.setBorder(BorderFactory.createRaisedSoftBevelBorder());
         //panelLateralBotones.setMinimumSize(new Dimension(100,200));
         panelLateralBotones.setOpaque(false);
-        panelLateralBotones.setLayout(new GridLayout(12,1,0,10));
+        panelLateralBotones.setLayout(new GridLayout(14,1, 0, 0));
+        //panelLateralBotones.setLayout(new BoxLayout(panelLateralBotones, BoxLayout.PAGE_AXIS));
+        
         
         //++++++++++++ Codigo botones ++++++++++++++
         bt_Productos.setText("Productos");
+        //bt_Productos.setBounds(0,0,200,40);
         bt_Productos.addActionListener((e) -> {
            
-            dispose();
+            JOptionPane.showMessageDialog(panelPantallaPrincipal, "Hola","Nueva notificación",JOptionPane.INFORMATION_MESSAGE);
             
         });
         panelLateralBotones.add(bt_Productos);
+        
+        bt_Catalogo.setText("Catálogo");
+        
+        panelLateralBotones.add(bt_Catalogo);
         
         //++++++++++++ constrains panel botones ++++++++++
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridheight = 2;
-        constraints.fill = GridBagConstraints.BOTH;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = GridBagConstraints.NORTH;
         constraints.weightx = 0.10;
         constraints.weighty = 1.0;
         panelContenedor.add(panelLateralBotones,constraints);
@@ -135,7 +218,7 @@ public class ventanaPrincipal extends JFrame{
         //+++++++++++ panel de las notificaciones +++++++++++++
         panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
         panelNotificaciones.setOpaque(false);
-        //panelNotificaciones.setPreferredSize(new Dimension(100,100));
+        panelNotificaciones.setPreferredSize(new Dimension(100,100));
         panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.LINE_AXIS));
         
         //++++++++++ Constraints del panel de notificaciones +++++++++
@@ -164,18 +247,45 @@ public class ventanaPrincipal extends JFrame{
         panelContenedor.add(panelInformacion, constraints);
         
         //++++++++++ union al frame ++++++++++
-        getContentPane().add(panelContenedor);
+        win.getContentPane().add(panelContenedor);
         
-        //+++++++++++ insercion de la barra de menu +++++++++
+        //++++++++ Codigos del menu Archivo +++++++++++
         m_File.setText("Archivo");
+        m_File.setFont(ArialB14);
+        
+        //+++++++++ Submenus ++++++++
+        im_New.setText("Nuevo");
+        im_New.setFont(ArialB12);
+        
+        im_Open.setText("Abrir");
+        im_Open.setFont(ArialB12);
+        
+        im_Exit.setText("Salir");
+        im_Exit.setFont(ArialB12);
+        im_Exit.addActionListener((e) -> {
+            
+            cerrarApp();
+                        
+        });
+        
+        //union de los items
+        m_File.add(im_New);
+        m_File.add(im_Open);
+        m_File.add(im_Exit);
+        //+++++++++++ insercion de la barra de menu +++++++++
         br_Menu.add(m_File);
         
-        setJMenuBar(br_Menu);
         
-        pack();
+        win.setJMenuBar(br_Menu);
+        
+        win.pack();
         
         
         
         
     }
+    
+    
+
+    
 }

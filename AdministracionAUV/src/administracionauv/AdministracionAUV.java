@@ -35,7 +35,7 @@ public class AdministracionAUV {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ventanaPrincipal().setVisible(true);
+                new ventanaPrincipal().win.setVisible(true);
             }
         });
         
