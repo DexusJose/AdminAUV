@@ -15,7 +15,6 @@
  */
 package administracionauv;
 
-import formularios.principal;
 import formularios.ventanaPrincipal;
 import java.awt.EventQueue;
 

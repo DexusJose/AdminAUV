@@ -49,6 +49,9 @@ import javax.swing.border.BevelBorder;
 public class ventanaPrincipal {
     
     private final Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+    private final String Titulo ="Administración AUV";
+    private final String version = "V 0.2.1";
+    private final String ab = ".18XVIII13";
     
     public int altoPantalla = pantalla.height;
     public int anchoPantalla = pantalla.width;
@@ -96,7 +99,6 @@ public class ventanaPrincipal {
                 
             System.exit(0);
                 
-                
         }
     }
     
@@ -113,6 +115,8 @@ public class ventanaPrincipal {
     public final void initComponents() {
     
         win =new JFrame();
+        win.setTitle(Titulo + "  " + version + ab);
+        win.setFont(ArialB14);
         
         //+++++++ Paneles contenedores +++++++++
         //panelContenedor = new JPanel();

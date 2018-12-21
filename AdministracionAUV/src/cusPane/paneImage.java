@@ -15,9 +15,10 @@
  */
 package cusPane;
 
-import static formularios.principal.Fondo;
-import java.awt.Dimension;
+
+import administracionauv.AdministracionAUV;
 import java.awt.Graphics;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -25,6 +26,8 @@ import javax.swing.JPanel;
  * @author Ing. Dexus José Pérez <jose_perezmiranda@outlook.com>
  */
 public class paneImage extends JPanel{
+    
+    private final ImageIcon Fondo    = new ImageIcon(AdministracionAUV.class.getResource("/resources/1024.png"));
     
     public paneImage(){
         
@@ -36,7 +39,7 @@ public class paneImage extends JPanel{
         int widht = getSize().width/2;
         int height= getSize().height/2;
         
-        g.drawImage(Fondo.getImage(), (getSize().width/2)-(widht/2), ((getSize().height/3)-(height/2))+30, widht,height+200,null);
+        g.drawImage(Fondo.getImage(), ((getSize().width/2)-(widht/2))+100, ((getSize().height/3)-(height/2))+50, widht-150,height+50,null);
         
         setOpaque(false);
         super.paint(g);
