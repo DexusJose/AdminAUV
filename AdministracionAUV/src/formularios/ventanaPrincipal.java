@@ -17,7 +17,9 @@ package formularios;
 
 import administracionauv.AdministracionAUV;
 import cusPane.paneImage;
+import framesInternos.internalWin;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -33,6 +35,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -41,6 +44,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 /**
  *
@@ -69,6 +73,8 @@ public class ventanaPrincipal {
     
     public static final Color botones_laterales     = new Color(119,172,232);
     
+    public static final Color FondoMenuLateral      = new Color(177,201,227);
+    
     //Codigo para las fuentes
     public static final Font ArialB14 = new Font("Arial",Font.BOLD,14);
     public static final Font ArialP14 = new Font("Arial",Font.PLAIN,14);
@@ -80,12 +86,15 @@ public class ventanaPrincipal {
     // Codigo para imagenes
     private final ImageIcon mainIcon    = new ImageIcon(AdministracionAUV.class.getResource("/resources/icon.png"));
     
-
+    // ++++++++++ Bordes +++++++++++++
+    public static Border bordeRin       =  BorderFactory.createSoftBevelBorder(BevelBorder.LOWERED);
+    public static Border BordeVacio     = BorderFactory.createEmptyBorder();
+    public static Border BordeBeRa      = BorderFactory.createBevelBorder(BevelBorder.RAISED);
     
     public GridBagConstraints constraints;
     public paneImage panelContenedor;
     private JPanel panelLateralBotones;
-    private JPanel panelPantallaPrincipal;
+    private JDesktopPane panelPantallaPrincipal;
     private JPanel panelNotificaciones;
     private JPanel panelInformacion;
     private JButton bt_Productos,bt_Catalogo,bt_Proveedores,bt_contactos,bt_Facturas;
@@ -122,13 +131,14 @@ public class ventanaPrincipal {
         //panelContenedor = new JPanel();
         panelContenedor = new paneImage();
         panelLateralBotones = new JPanel();
-        panelPantallaPrincipal = new JPanel();
+        panelPantallaPrincipal = new JDesktopPane();
         panelNotificaciones = new JPanel();
         panelInformacion = new JPanel();
         
         //+++++++++++++ Botones +++++++++++++
-        bt_Productos    = new JButton();
+        bt_Productos    = new JButton();   
         bt_Catalogo     = new JButton();
+        
         
         //++++++++++++ Barra de menu ++++++++
         br_Menu = new JMenuBar();
@@ -164,30 +174,38 @@ public class ventanaPrincipal {
         win.setPreferredSize(pantalla); 
         
         //++++++++++++ Codigo del panel contenedor +++++++++++++++
-        panelContenedor.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        panelContenedor.setBorder(bordeRin);
         panelContenedor.setOpaque(false);
         panelContenedor.setLayout(new GridBagLayout());
         
         //++++++++++++ Codigo del panel
-        //panelLateralBotones.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        panelLateralBotones.setBorder(BorderFactory.createRaisedSoftBevelBorder());
-        //panelLateralBotones.setMinimumSize(new Dimension(100,200));
-        panelLateralBotones.setOpaque(false);
+        panelLateralBotones.setBorder(bordeRin);
+        panelLateralBotones.setBackground(botones_laterales);
+        panelLateralBotones.setOpaque(true);
         panelLateralBotones.setLayout(new GridLayout(14,1, 0, 0));
-        //panelLateralBotones.setLayout(new BoxLayout(panelLateralBotones, BoxLayout.PAGE_AXIS));
-        
+       
         
         //++++++++++++ Codigo botones ++++++++++++++
         bt_Productos.setText("Productos");
-        //bt_Productos.setBounds(0,0,200,40);
         bt_Productos.addActionListener((e) -> {
            
             JOptionPane.showMessageDialog(panelPantallaPrincipal, "Hola","Nueva notificación",JOptionPane.INFORMATION_MESSAGE);
             
         });
+        bt_Productos.setBackground(FondoMenuLateral);
+        bt_Productos.setBorder(BordeBeRa);
+        
         panelLateralBotones.add(bt_Productos);
         
         bt_Catalogo.setText("Catálogo");
+        
+        bt_Catalogo.addActionListener((e)->{
+            internalWin inte = new internalWin();
+            inte.initInternal();
+            panelPantallaPrincipal.add(inte);
+        });
+        bt_Catalogo.setBackground(FondoMenuLateral);
+        bt_Catalogo.setBorder(BordeBeRa);
         
         panelLateralBotones.add(bt_Catalogo);
         
@@ -203,9 +221,9 @@ public class ventanaPrincipal {
         panelContenedor.add(panelLateralBotones,constraints);
         
         //+++++++++++ panel de la pantalla principal ++++++++++
-        panelPantallaPrincipal.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        
+        panelPantallaPrincipal.setBorder(bordeRin);
         panelPantallaPrincipal.setOpaque(false);
-        //panelPantallaPrincipal.setPreferredSize(new Dimension(500,100));
         panelPantallaPrincipal.setLayout(new BoxLayout(panelPantallaPrincipal, BoxLayout.LINE_AXIS));
         
         //+++++++++++ constraints panel pantalla principal +++++++++
@@ -220,7 +238,7 @@ public class ventanaPrincipal {
         panelContenedor.add(panelPantallaPrincipal,constraints);
         
         //+++++++++++ panel de las notificaciones +++++++++++++
-        panelNotificaciones.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        panelNotificaciones.setBorder(bordeRin);
         panelNotificaciones.setOpaque(false);
         panelNotificaciones.setPreferredSize(new Dimension(100,100));
         panelNotificaciones.setLayout(new BoxLayout(panelNotificaciones, BoxLayout.LINE_AXIS));
@@ -235,7 +253,7 @@ public class ventanaPrincipal {
         panelContenedor.add(panelNotificaciones, constraints);
         
         //++++++++++++ Panel de informacion ++++++++++++
-        panelInformacion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        panelInformacion.setBorder(bordeRin);
         panelInformacion.setOpaque(false);
         //panelInformacion.setPreferredSize(new java.awt.Dimension(500, 100));
         panelInformacion.setLayout(new BoxLayout(panelInformacion, BoxLayout.LINE_AXIS));
