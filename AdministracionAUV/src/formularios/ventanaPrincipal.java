@@ -16,6 +16,7 @@
 package formularios;
 
 import administracionauv.AdministracionAUV;
+import archivos.dialogabrir;
 import cusPane.paneImage;
 import framesInternos.internalWin;
 import java.awt.Color;
@@ -100,8 +101,8 @@ public class ventanaPrincipal {
     private JButton bt_Productos,bt_Catalogo,bt_Proveedores,bt_contactos,bt_Facturas;
     private JMenuBar br_Menu;
     private JMenu m_File;
-    private JMenuItem im_New, im_Open, im_Exit; 
-    public JFrame win;
+    private JMenuItem im_New, im_Open,im_CDB, im_Exit; 
+    public static JFrame win;
     
     private void cerrarApp(){
         if (JOptionPane.showConfirmDialog(win, "Esta seguro que desea cerrar el programa?","¿Cerrar aplicacion?",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -148,7 +149,9 @@ public class ventanaPrincipal {
         //++++++++++ Items de menu archivo +++++++++++
         im_New  = new JMenuItem();
         im_Open = new JMenuItem();
+        im_CDB  = new JMenuItem();
         im_Exit = new JMenuItem();
+        
         
         //+++++++++Codigo Ventana ++++++++++++
         win.setIconImage(mainIcon.getImage());
@@ -249,7 +252,7 @@ public class ventanaPrincipal {
         constraints.gridy = 2;
         constraints.fill = java.awt.GridBagConstraints.BOTH;
         constraints.weightx = 0.10;
-        constraints.weighty = 0.5;
+        constraints.weighty = 0.4;
         panelContenedor.add(panelNotificaciones, constraints);
         
         //++++++++++++ Panel de informacion ++++++++++++
@@ -265,7 +268,7 @@ public class ventanaPrincipal {
         constraints.gridwidth = 2;
         constraints.fill = java.awt.GridBagConstraints.BOTH;
         constraints.weightx = 1.0;
-        constraints.weighty = 0.5;
+        constraints.weighty = 0.4;
         panelContenedor.add(panelInformacion, constraints);
         
         //++++++++++ union al frame ++++++++++
@@ -282,6 +285,15 @@ public class ventanaPrincipal {
         im_Open.setText("Abrir");
         im_Open.setFont(ArialB12);
         
+        im_CDB.setText("Conectar Base de Datos");
+        im_CDB.setFont(ArialB12);
+        im_CDB.addActionListener((e)->{
+        
+            dialogabrir db = new dialogabrir();
+            db.conectarBase();
+            
+        });
+        
         im_Exit.setText("Salir");
         im_Exit.setFont(ArialB12);
         im_Exit.addActionListener((e) -> {
@@ -293,6 +305,7 @@ public class ventanaPrincipal {
         //union de los items
         m_File.add(im_New);
         m_File.add(im_Open);
+        m_File.add(im_CDB);
         m_File.add(im_Exit);
         //+++++++++++ insercion de la barra de menu +++++++++
         br_Menu.add(m_File);
