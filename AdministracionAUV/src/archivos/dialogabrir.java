@@ -73,17 +73,19 @@ public class dialogabrir {
             
             
             
-            resultado=sentencia.executeQuery("SELECT * FROM Alumnos");
+            resultado=sentencia.executeQuery("SELECT Alumnos.Nombre, Carreras.info FROM Alumnos INNER JOIN Carreras ON Alumnos.Carrera = Carreras.Carrera");
             //System.out.println(resultado);
             System.out.println("CONSULTA EJECUTADA");
 
 				boolean r=resultado.next();
 				while (r) {
-					System.out.println(resultado.getString("Id") + 
+					System.out.println(
+                                                //resultado.getString("Id") + 
                               " - " + resultado.getString("Nombre") + " " +
-                              resultado.getString("Apellido paterno") + " " + 
-                              resultado.getString("Apellido materno") + " " +
-                              resultado.getString("CP")
+                              //resultado.getString("Apellido paterno") + " " + 
+                              //resultado.getString("Apellido materno") + " " +
+                              //resultado.getString("CP") + "  " +
+                                                resultado.getString("info")
                                         );
 					r=resultado.next();
                                         //r=false;
@@ -93,7 +95,7 @@ public class dialogabrir {
             
         } catch (SQLException e) {
             
-            JOptionPane.showMessageDialog(null, "Error al crear la conexion");
+            JOptionPane.showMessageDialog(null, "Error al crear la conexion\n" + e);
             //System.out.println(e);
         }
         
